@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --rounded-btn: 0 !important;
+    --rounded-box: 0;
+}
+
+.btn {
+    @apply min-h-[1rem] h-[2rem];   
+}
+
+.card-body {
+    @apply p-4
+}
