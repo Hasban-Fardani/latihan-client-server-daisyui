@@ -7,15 +7,15 @@
         <div class="label">
             <span class="label-text">Email</span>
         </div>
-        <input type="email" placeholder="email" name="email" class="input">
+        <input type="email" placeholder="email" name="email" class="input input-bordered">
     </label>
     <label class="form-control">
         <div class="label">
             <span class="label-text">Password</span>
         </div>
-        <input type="password" placeholder="password" name="password" class="input">
+        <input type="password" placeholder="password" name="password" class="input input-bordered">
     </label>
 
-    <button type="submit" class="btn bg-red-500 text-white">login</button>
+    <button type="submit" class="btn bg-red-500 text-white mt-4">login</button>
 </form>
 @endsection

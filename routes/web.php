@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 // views section
 Route::view('/auth/login', 'auth.login')
-    ->name('page.login');
+    ->name('page.login')
+    ->middleware('guest');
 // Route::view('/auth/register', 'auth.register')
 //     ->name('page.register');
 
@@ -27,12 +30,8 @@ Route::view('/spareparts', 'spareparts')
     ->name('page.spareparts');
 
 // ==== Admin ====
-Route::view('admin/dashboard', 'admin.dashboard')
-    ->name('page.admin.dashboard');
 Route::view('admin/spareparts', 'admin.spareparts')
     ->name('page.admin.spareparts');
-Route::view('admin/customer', 'admin.customer')
-    ->name('page.admin.customer');
 Route::view('admin/transaction', 'admin.transaction')
     ->name('page.admin.transaction');
 // end views section
@@ -47,7 +46,11 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 Route::middleware('auth')->group(function () {
     Route::middleware('can:admin')->prefix('admin')->group(function (){
+        Route::get('/dashboard', DashboardController::class)
+            ->name('dashboard');
         Route::resource('categories', CategoryController::class)
             ->only(['index', 'store', 'destroy']);
+        Route::resource('customers', CustomerController::class)
+            ->except(['edit', 'create']);
     });
 });

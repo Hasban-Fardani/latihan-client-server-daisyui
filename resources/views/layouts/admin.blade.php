@@ -14,24 +14,37 @@
         <div class="drawer-content flex flex-col min-h-screen">
             <!-- Page content here -->
             <div class="flex-1 p-4">
-            @if(!$errors->isEmpty())
-                <div role="alert" class="alert alert-error">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                @if($errors->any())
+                <div role="alert" class="alert alert-error justify-between">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <span>{{ $errors->first() }}</span>
+                    <div>
+                        <a href="">X</a>
+                    </div>
                 </div>
-            @endif
-
+                @endif
+                @if(session('success'))
+                <div role="alert" class="alert alert-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{{ session('success') }}</span>
+                    <div>
+                        <a href="">X</a>
+                    </div>
+                </div>
+                @endif
                 <div class="flex justify-between items-center">
                     <h2 class="text-2xl font-bold">
                         @yield('title')
                     </h2>
                     <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn btn-ghost avatar w-max flex">
+                        <div tabindex="0" role="button" class="btn btn-ghost avatar flex rounded-full !h-10">
                             <span>
                                 {{ auth()->user()->name }}
                             </span>
                             <div class="w-10 rounded-full">
-                                <img src="{{asset('image/user-icon.svg')}}" alt="user image">
+                                <img src="{{asset('images/person-circle.svg')}}" alt="user image">
                             </div>
                         </div>
                         <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-red-500 text-white     rounded-box w-52">
@@ -60,14 +73,16 @@
                 <li></li>
                 <!-- Sidebar content here -->
                 <li><a href="{{ route('page.index') }}">Home</a></li>
-                <li><a href="{{ route('page.admin.dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('page.admin.spareparts') }}">Spareparts</a></li>
                 <li><a href="{{ route('categories.index') }}">Kategori</a></li>
-                <li><a href="{{ route('page.admin.customer') }}">Customer</a></li>
+                <li><a href="{{ route('customers.index') }}">Customer</a></li>
                 <li><a href="{{ route('page.admin.transaction') }}">Transaksi</a></li>
             </ul>
 
         </div>
     </div>
+
+    @stack('javascript')
 </body>
 </html>

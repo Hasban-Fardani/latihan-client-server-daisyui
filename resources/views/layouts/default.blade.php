@@ -34,13 +34,13 @@
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10">
-                        <img src="{{asset('image/user-icon.svg')}}" alt="user image">
+                        <img src="{{asset('images/person-circle.svg')}}" alt="user image" class="text-white">
                     </div>
                 </div>
-                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-red-500 text-white     rounded-box w-52">
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-red-500 text-white rounded-box w-52">
                     <li>
                         @can('admin')
-                        <a class="justify-between" href="{{route('page.admin.dashboard')}}">
+                        <a class="justify-between" href="{{route('dashboard')}}">
                             Dashboard
                         </a>
                         @endcan
@@ -59,6 +59,26 @@
         </div>
     </div>
     <main class="px-8 lg:px-52 py-10 flex-1">
+        @if($errors->any())
+        <div role="alert" class="alert alert-error justify-between">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>{{ $errors->first() }}</span>
+            <div>
+                <a href="">X</a>
+            </div>
+        </div>
+        @endif
+        @if(session('success'))
+        <div role="alert" class="alert alert-success">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>{{ session('success') }}</span>
+            <div>
+                <a href="">X</a>
+            </div>
+        </div>
+        @endif
         @yield('content')
     </main>
     <footer class="footer footer-center p-4 bg-gray-800 text-white">
