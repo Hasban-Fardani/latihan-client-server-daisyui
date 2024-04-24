@@ -14,6 +14,13 @@
         <div class="drawer-content flex flex-col min-h-screen">
             <!-- Page content here -->
             <div class="flex-1 p-4">
+            @if(!$errors->isEmpty())
+                <div role="alert" class="alert alert-error">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{{ $errors->first() }}</span>
+                </div>
+            @endif
+
                 <div class="flex justify-between items-center">
                     <h2 class="text-2xl font-bold">
                         @yield('title')
@@ -47,7 +54,7 @@
                 </aside>
             </footer>
         </div>
-        <div class="drawer-side">
+        <div class="drawer-side min-h-full">
             <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
             <ul class="menu p-4 w-64 min-h-full bg-red-500 text-white">
                 <li></li>
@@ -55,7 +62,7 @@
                 <li><a href="{{ route('page.index') }}">Home</a></li>
                 <li><a href="{{ route('page.admin.dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('page.admin.spareparts') }}">Spareparts</a></li>
-                <li><a href="{{ route('page.admin.categories') }}">Kategori</a></li>
+                <li><a href="{{ route('categories.index') }}">Kategori</a></li>
                 <li><a href="{{ route('page.admin.customer') }}">Customer</a></li>
                 <li><a href="{{ route('page.admin.transaction') }}">Transaksi</a></li>
             </ul>

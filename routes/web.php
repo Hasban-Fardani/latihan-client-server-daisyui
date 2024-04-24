@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,8 +31,6 @@ Route::view('admin/dashboard', 'admin.dashboard')
     ->name('page.admin.dashboard');
 Route::view('admin/spareparts', 'admin.spareparts')
     ->name('page.admin.spareparts');
-Route::view('admin/categories', 'admin.categories')
-    ->name('page.admin.categories');
 Route::view('admin/customer', 'admin.customer')
     ->name('page.admin.customer');
 Route::view('admin/transaction', 'admin.transaction')
@@ -44,3 +43,11 @@ Route::post('/login', [AuthController::class, 'login'])
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 // end auth section
+
+
+Route::middleware('auth')->group(function () {
+    Route::middleware('can:admin')->prefix('admin')->group(function (){
+        Route::resource('categories', CategoryController::class)
+            ->only(['index', 'store', 'destroy']);
+    });
+});
